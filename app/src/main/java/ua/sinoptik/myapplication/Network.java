@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Админ on 30.11.2015.
@@ -34,9 +35,8 @@ public class Network extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        // получаем данные с внешнего ресурса
+        while(true){
         try {
-
             URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?q=Cherkassy,ua&units=metric&mode=json&appid=2de143494c0b295cca9337e1e96b00e0");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);
@@ -49,12 +49,49 @@ public class Network extends AsyncTask<Void, Void, String> {
 
             // Convert the InputStream into a string
             resultJson = readIt(is);
+            try {
+                if(MainActivity.isNetwork){
+                    JSONObject dataJsonObj = new JSONObject(resultJson);
+                    JSONArray weather = dataJsonObj.getJSONArray("list");
+                    Log.d("tred", " та работает " );
+                    dbHelper = new DBHelper(MainActivity.context);
+                    ContentValues cv = new ContentValues();
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+                    db.delete("mytable1", null, null);
+                    for(int i=0;i<40;i++){
+                        JSONObject item = weather.getJSONObject(i);
+                        date = item.getString("dt_txt");
+                        tem = item.getJSONObject("main").getString("temp");
+                        humidity = item.getJSONObject("main").getString("humidity");
+                        speed = item.getJSONObject("wind").getString("speed");
+                        icon = item.getJSONArray("weather").getJSONObject(0).getString("icon");
+                        cv.put("date", date);
+                        cv.put("temp", tem);
+
+                        cv.put("humidity", humidity);
+                        cv.put("speed", speed);
+                        cv.put("icon", icon);
+                        db.insert("mytable1", null, cv);}
+
+                }
+                MainActivity.listAdapter.notifyDataSetChanged();
+                try {
+                    TimeUnit.SECONDS.sleep(10);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
 
-        }
-        return resultJson;
+        }}
+
     }
     public String readIt(InputStream stream) throws IOException {
 
@@ -63,39 +100,7 @@ public class Network extends AsyncTask<Void, Void, String> {
         String s = bufferedReader.readLine();
         return s;
     }
-    protected void onPostExecute(String strJson) {
-        super.onPostExecute(strJson);
-        try {
-            if(MainActivity.isNetwork){
-            JSONObject dataJsonObj = new JSONObject(strJson);
-            JSONArray weather = dataJsonObj.getJSONArray("list");
-            Log.d("myLog", " " + MainActivity.context);
-            dbHelper = new DBHelper(MainActivity.context);
-            ContentValues cv = new ContentValues();
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            db.delete("mytable1", null, null);
-            for(int i=0;i<40;i++){
-                JSONObject item = weather.getJSONObject(i);
-                date = item.getString("dt_txt");
-                tem = item.getJSONObject("main").getString("temp");
-                humidity = item.getJSONObject("main").getString("humidity");
-                speed = item.getJSONObject("wind").getString("speed");
-                icon = item.getJSONArray("weather").getJSONObject(0).getString("icon");
-                cv.put("date", date);
-                cv.put("temp", tem);
-
-                cv.put("humidity", humidity);
-                cv.put("speed", speed);
-                cv.put("icon", icon);
-                db.insert("mytable1", null, cv);}
-            MainActivity.listAdapter.notifyDataSetChanged();
-}
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

@@ -36,7 +36,7 @@ public class DetailsActivity  extends FragmentActivity {
             finish();
             return;
         }
-        new Network().execute();
+
         Log.d("log", " " + this);
         dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();

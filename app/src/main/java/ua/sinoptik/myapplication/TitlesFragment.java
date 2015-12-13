@@ -43,7 +43,6 @@ public class TitlesFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Network().execute();
         Log.d(LOG_TAG, "1 " + getActivity());
 
 

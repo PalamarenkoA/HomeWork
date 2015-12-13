@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements
     List<String> listDataHeader;
     static  ArrayList<String> day1;
     boolean withDetails = true;
+    Cursor c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +50,14 @@ public class MainActivity extends AppCompatActivity implements
         Log.d("orientation", "orientation " + withDetails);
         setContentView(R.layout.activity_main);
         context = this;
+        Intent intent = new Intent(this, MyService.class);
+        startService(intent);
         isNetwork = isNetworkAvailable();
         if (savedInstanceState != null) position = savedInstanceState.getInt("position");
-        titleDate();
+        dbHelper = new DBHelper(this);
+        db = dbHelper.getWritableDatabase();
+        c = db.query("mytable1", null, null, null, null, null, null);
+           titleDate();
             if(withDetails){
         showDetails(position);}
 
@@ -89,11 +95,8 @@ public class MainActivity extends AppCompatActivity implements
                
         }
     void titleDate(){
-        new Network().execute();
+
         Log.d("log", " " + this);
-        dbHelper = new DBHelper(this);
-        db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("mytable1", null, null, null, null, null, null);
         listdate = new ArrayList<>();
         listtemp = new ArrayList<>();
         listhumidity = new ArrayList<>();
@@ -241,14 +244,39 @@ for(int i = 0;i<grup.size();i++){
 
 
 
+        if (grup.size()==1){
+            listDataChild.put(listDataHeader.get(0), day1);
 
+        }
+        if (grup.size()==2){
+            listDataChild.put(listDataHeader.get(0), day1);
+            listDataChild.put(listDataHeader.get(1), day2);
+        }
+        if (grup.size()==3){
+            listDataChild.put(listDataHeader.get(0), day1);
+            listDataChild.put(listDataHeader.get(1), day2);
+            listDataChild.put(listDataHeader.get(2), day3);
+        }
+        if (grup.size()==4){
+            listDataChild.put(listDataHeader.get(0), day1);
+            listDataChild.put(listDataHeader.get(1), day2);
+            listDataChild.put(listDataHeader.get(2), day3);
+            listDataChild.put(listDataHeader.get(3), day4);
+        }
+        if (grup.size()==5){
+            listDataChild.put(listDataHeader.get(0), day1);
+            listDataChild.put(listDataHeader.get(1), day2);
+            listDataChild.put(listDataHeader.get(2), day3);
+            listDataChild.put(listDataHeader.get(3), day4);
+            listDataChild.put(listDataHeader.get(4), day5);
+        }
 
-        listDataChild.put(listDataHeader.get(0), day1);
-        listDataChild.put(listDataHeader.get(1), day2);
-        listDataChild.put(listDataHeader.get(2), day3);
-        listDataChild.put(listDataHeader.get(3), day4);
-        listDataChild.put(listDataHeader.get(4), day5);
 if (grup.size()==6){
+    listDataChild.put(listDataHeader.get(0), day1);
+    listDataChild.put(listDataHeader.get(1), day2);
+    listDataChild.put(listDataHeader.get(2), day3);
+    listDataChild.put(listDataHeader.get(3), day4);
+    listDataChild.put(listDataHeader.get(4), day5);
     listDataChild.put(listDataHeader.get(5), day6);
 }
     }
