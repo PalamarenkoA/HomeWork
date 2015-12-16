@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="55dip"
     android:orientation="horizontal"
-    android:background="#6a6a6c">
+    >
     <TextView
         android:id="@+id/lblListItem"
         android:layout_width="fill_parent"
@@ -11,13 +11,25 @@
         android:textSize="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:textColor="#e1e1e0"
+        android:textColor="#FF4081"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:layout_weight="1" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="103dp"
-        android:id="@+id/imageView2" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView3"
+            android:src="@drawable/sir"/>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView2" />
+
+    </FrameLayout>
 
 </LinearLayout>

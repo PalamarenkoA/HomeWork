@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/dim_foreground_material_light">
+   >
 
     <TextView
         android:id="@+id/date"
@@ -13,46 +13,65 @@
         android:text="датта 23 23 23"
         android:textSize="30sp"
         android:layout_gravity="center"
-        style="@style/Base.TextAppearance.AppCompat.Medium.Inverse">
+        >
     </TextView>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/temp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="температура"
-            android:textSize="30sp"
-            android:layout_gravity="top|left|center_vertical"
-            style="@style/Base.TextAppearance.AppCompat.Medium.Inverse" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView4"
+                android:src="@drawable/t"/>
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:text="температура"
+                android:textSize="30sp"
+                />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView5"
+                android:src="@drawable/f"/>
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:text="температура"
+                android:textSize="30sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/humidity"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="температура"
-            android:textSize="30sp"
-            android:layout_gravity="top|left|center_vertical"
-            style="@style/Base.TextAppearance.AppCompat.Medium.Inverse" />
-        <TextView
-            android:id="@+id/speed"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="температура"
-            android:textSize="30sp"
-            android:layout_gravity="top|left|center_vertical"
-            style="@style/Base.TextAppearance.AppCompat.Medium.Inverse" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView6"
+                android:src="@drawable/v"/>
+
+            <TextView
+                android:id="@+id/speed"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="температура"
+                android:textSize="30sp"
+                android:layout_gravity="top|left|center_vertical"
+               />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,11 +79,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView2"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
 
