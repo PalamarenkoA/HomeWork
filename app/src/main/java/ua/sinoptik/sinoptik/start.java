@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.concurrent.TimeUnit;
-
 public class start extends AppCompatActivity {
     static boolean isNetwork;
     static Context context;
@@ -25,17 +23,17 @@ public class start extends AppCompatActivity {
 
         isNetwork = isNetworkAvailable();
         context = this;
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finish();
-            }
-        }
-    ).start();
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    TimeUnit.SECONDS.sleep(3);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                finish();
+//            }
+//        }
+//    ).start();
 
 
 

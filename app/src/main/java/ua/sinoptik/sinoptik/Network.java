@@ -45,9 +45,10 @@ public class Network extends AsyncTask<Void, Void, Boolean> {
                 // Starts the query
                 conn.connect();
                 is = conn.getInputStream();
-
+                connect = false;
                 // Convert the InputStream into a string
                 resultJson = readIt(is);
+
                 try {
                     if(start.isNetwork){
                         connect = true;
@@ -59,9 +60,11 @@ public class Network extends AsyncTask<Void, Void, Boolean> {
                         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                         db.delete("mytable1", null, null);
-                        for(int i=0;i<40;i++){
+                        for(int i=0;i<weather.length();i++){
                             JSONObject item = weather.getJSONObject(i);
                             date = item.getString("dt_txt");
+                            Log.d("tred", " отработали " + i );
+                            Log.d("tred", " датта " + item.getString("dt_txt"));
                             tem = item.getJSONObject("main").getString("temp");
                             humidity = item.getJSONObject("main").getString("humidity");
                             speed = item.getJSONObject("wind").getString("speed");
@@ -98,11 +101,13 @@ public class Network extends AsyncTask<Void, Void, Boolean> {
 
             start.context.startActivity(new Intent(start.context, Main2Activity.class).addFlags(
                     Intent.FLAG_ACTIVITY_TASK_ON_HOME));
-            start start = new start();
-            start.finish();
+
 
         }else{
+            Helper.showToast("Соединение не установлено", start.context);
 
+            start.context.startActivity(new Intent(start.context, Main2Activity.class).addFlags(
+                    Intent.FLAG_ACTIVITY_TASK_ON_HOME));
         }
     }
     public String readIt(InputStream stream) throws IOException {
